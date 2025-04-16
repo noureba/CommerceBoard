@@ -7,10 +7,14 @@ import View from "./components/View";
 const App = () => {
   return (
     <AdminDataProvider>
-      <div className="max-w-[1400px] mx-auto">
+      <div className="max-w-[1700px] mx-auto bg-fuchsia-50">
         <div className="flex justify-between">
-          <SideBare />
-          <View />
+          <div>
+            <SideBare />
+          </div>
+          <div className="grow overflow-hidden md:p-10 p-3">
+            <View />
+          </div>
         </div>
       </div>
     </AdminDataProvider>

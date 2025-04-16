@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { AdminData } from "../context/Context";
 import Home from "./Home";
-import AllProducts from "./AllProducts";
-import AddProduct from "./AddProduct";
-import Categories from "./Categories";
+import AllProducts from "./products/AllProducts";
+import AddProduct from "./products/AddProduct";
+import Categories from "./products/Categories";
 import AllOrders from "./AllOrders";
 import AddOrder from "./AddOrder";
 import AllPages from "./AllPages";
@@ -55,7 +55,7 @@ function View() {
     }
   };
 
-  return <div className="p-10">{viewSwitch()}</div>;
+  return <div>{viewSwitch()}</div>;
 }
 
 export default View;
