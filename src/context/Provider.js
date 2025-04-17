@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AdminData } from "./Context";
 import { productsData } from "../data/products";
 import { categoriesData } from "../data/categories";
+import { ordersData } from "../data/orders";
 
 function AdminDataProvider({ children }) {
   const [view, setView] = useState("home");
@@ -11,6 +12,7 @@ function AdminDataProvider({ children }) {
   //const [load, setLoad] = useState(true)
   const [products, setProducts] = useState(productsData);
   const [categories, setCategories] = useState(categoriesData);
+  const [orders, setOrders] = useState(ordersData);
 
   const value = {
     view,
@@ -25,6 +27,8 @@ function AdminDataProvider({ children }) {
     setProducts,
     categories,
     setCategories,
+    orders,
+    setOrders,
   };
   return <AdminData.Provider value={value}>{children}</AdminData.Provider>;
 }
