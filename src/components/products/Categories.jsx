@@ -4,10 +4,12 @@ import { MdEdit } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import { IoMdCloudUpload } from "react-icons/io";
 import EditCategories from "./EditCategories";
+import logo from "../../assets/logoDark2.png";
+
 
 function Categories() {
   const fileInputRef = useRef(null);
-  const { categories, modal, setModal } = useContext(AdminData);
+  const { categories, modal, setModal, setCategories } = useContext(AdminData);
   const [categorySelect, setCategorySelect] = useState("");
 
   //data state
@@ -17,12 +19,25 @@ function Categories() {
   });
 
   //sent data
-  const handelDataSent = () => {};
+  const handelDataSent = () => {
+    setCategories([...categories, { ...category, id: Date.now() }]);
+    setCategory({
+      name: "",
+      image: "",
+    });
+    console.log(categories);
+  };
 
   //handel edit
   const handelEdit = (item) => {
     setCategorySelect(item);
     setModal(true);
+  };
+
+  //handel delete
+  const handelDelelte = (id) => {
+    const updateCategories = categories.filter((item) => item.id !== id);
+    setCategories(updateCategories);
   };
 
   return (
@@ -86,7 +101,7 @@ function Categories() {
               <tr>
                 <th className="px-4 py-3">Category</th>
                 <th className="px-4 py-3">Name</th>
-                <th className="px-4 py-3">Items</th>
+                <th className="px-4 py-3">Products</th>
                 <th className="px-4 py-3">Options</th>
               </tr>
             </thead>
@@ -96,7 +111,7 @@ function Categories() {
                   <tr key={category.id}>
                     <td className="px-4 py-3">
                       <img
-                        src={category.image}
+                        src={category.image ? category.image : logo}
                         alt="product image"
                         height="50px"
                         width="50px"
@@ -115,7 +130,10 @@ function Categories() {
                           <MdEdit />
                           Edite
                         </button>
-                        <button className="flex justify-between items-center gap-1 p-2 rounded bg-red-500 text-white cursor-pointer">
+                        <button
+                          className="flex justify-between items-center gap-1 p-2 rounded bg-red-500 text-white cursor-pointer"
+                          onClick={() => handelDelelte(category.id)}
+                        >
                           <MdDeleteForever />
                           Delelt
                         </button>
@@ -125,7 +143,9 @@ function Categories() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="8">No categories available</td>
+                  <td className="text-center text-2xl py-4" colSpan="8">
+                    No categories available
+                  </td>
                 </tr>
               )}
             </tbody>

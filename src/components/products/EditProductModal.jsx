@@ -1,21 +1,33 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Modal from "../Modal";
-import { categories } from "../../data/categories";
+import { categoriesData } from "../../data/categories";
 import { IoMdCloudUpload } from "react-icons/io";
+import { AdminData } from "../../context/Context";
 
 function EditProductModal(Props) {
+  const { products, setProducts, setModal } = useContext(AdminData);
   const fileInputRef = useRef(null);
-  const [product, setProduct] = useState({
-    name: "",
-    desc: "",
-    category: "",
-    price: "",
-    salePrice: "",
-    stock: "",
-    image: "",
-  });
+  const [product, setProduct] = useState(Props.product);
 
-  const handelDataSent = () => {};
+  const handelUpdateSave = () => {
+    const updateProduct = products.map((item) => {
+      if (item.id === product.id) {
+        return {
+          ...item,
+          name: product.name,
+          desc: product.desc,
+          category: product.category,
+          price: product.price,
+          salePrice: product.salePrice,
+          stock: product.stock,
+          //image: URL.createObjectURL(product.image[0]),
+        };
+      }
+      return item;
+    });
+    setProducts(updateProduct);
+    setModal(false);
+  };
 
   return (
     <Modal>
@@ -48,7 +60,6 @@ function EditProductModal(Props) {
               type="text"
               value={product.desc}
               name="desc"
-              placeholder={Props.product.desc}
               onChange={(e) => setProduct({ ...product, desc: e.target.value })}
               required
             />
@@ -64,7 +75,6 @@ function EditProductModal(Props) {
                 type="number"
                 value={product.stock}
                 name="stock"
-                placeholder={Props.product.stock}
                 onChange={(e) =>
                   setProduct({ ...product, stock: e.target.value })
                 }
@@ -81,7 +91,6 @@ function EditProductModal(Props) {
                 type="number"
                 value={product.price}
                 name="price"
-                placeholder={Props.product.price}
                 onChange={(e) =>
                   setProduct({ ...product, price: e.target.value })
                 }
@@ -97,7 +106,6 @@ function EditProductModal(Props) {
                 type="number"
                 value={product.salePrice}
                 name="salePrice"
-                placeholder={Props.product.salePrice}
                 onChange={(e) =>
                   setProduct({ ...product, salePrice: e.target.value })
                 }
@@ -111,12 +119,11 @@ function EditProductModal(Props) {
                 name="category"
                 className="border border-fuchsia-500 p-1 rounded outline-fuchsia-500"
                 value={product.category}
-                placeholder={Props.product.category}
                 onChange={(e) =>
                   setProduct({ ...product, category: e.target.value })
                 }
               >
-                {categories.map((item, index) => (
+                {categoriesData.map((item, index) => (
                   <option key={index} value={item.name}>
                     {item.name}
                   </option>
@@ -149,7 +156,7 @@ function EditProductModal(Props) {
 
           <button
             className="bg-fuchsia-500 text-white rounded px-3 py-2 font-medium cursor-pointer self-start hover:bg-fuchsia-400"
-            onClick={handelDataSent}
+            onClick={handelUpdateSave}
           >
             Save changes
           </button>

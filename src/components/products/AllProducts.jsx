@@ -5,7 +5,7 @@ import { MdDeleteForever } from "react-icons/md";
 import EditProductModal from "./EditProductModal";
 
 function AllProducts() {
-  const { products, modal, setModal } = useContext(AdminData);
+  const { products, setProducts, modal, setModal } = useContext(AdminData);
   const [product, setProduct] = useState("");
 
   //handel edite
@@ -14,7 +14,11 @@ function AllProducts() {
     setModal(true);
   };
 
-  //edite modal
+  //handel delete
+  const handelDelete = (id) => {
+    const updateProducts = products.filter((item) => item.id !== id);
+    setProducts(updateProducts);
+  };
 
   return (
     <>
@@ -61,8 +65,12 @@ function AllProducts() {
                       <span className="text-red-400">Out Stock</span>
                     )}
                   </td>
-                  <td className="px-4 py-3">{product.rating}</td>
-                  <td className="px-4 py-3">{product.sold}</td>
+                  <td className="px-4 py-3">
+                    {product.rating ? product.rating : "-"}
+                  </td>
+                  <td className="px-4 py-3">
+                    {product.sold ? product.sold : "-"}
+                  </td>
                   <td className="px-4 py-3">
                     {product.status === "active" ? (
                       <span className=" inline-block rounded bg-green-100 px-2 py-1 text-xs text-green-800">
@@ -83,7 +91,10 @@ function AllProducts() {
                         <MdEdit />
                         Edite
                       </button>
-                      <button className="flex justify-between items-center gap-1 p-2 rounded bg-red-500 text-white cursor-pointer">
+                      <button
+                        className="flex justify-between items-center gap-1 p-2 rounded bg-red-500 text-white cursor-pointer"
+                        onClick={() => handelDelete(product.id)}
+                      >
                         <MdDeleteForever />
                         Delelt
                       </button>
@@ -93,7 +104,9 @@ function AllProducts() {
               ))
             ) : (
               <tr>
-                <td colSpan="8">No products available</td>
+                <td className="text-2xl text-center py-5" colSpan="9">
+                  No products available
+                </td>
               </tr>
             )}
           </tbody>

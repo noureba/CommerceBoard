@@ -1,15 +1,28 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Modal from "../Modal";
 import { IoMdCloudUpload } from "react-icons/io";
+import { AdminData } from "../../context/Context";
 
 function EditCategories(Props) {
   const fileInputRef = useRef(null);
-  const [category, setCategory] = useState({
-    name: "",
-    image: "",
-  });
+  const { categories, setCategories, setModal } = useContext(AdminData);
+  const [category, setCategory] = useState(Props.category);
 
-  const handelDataSent = () => {};
+  const handelDataSent = () => {
+    const updateCategory = categories.map((item) => {
+      if (item.id === category.id) {
+        return {
+          ...item,
+          name: category.name,
+          image: category.image,
+        };
+      }
+      return item;
+    });
+
+    setCategories(updateCategory);
+    setModal(false);
+  };
   return (
     <Modal>
       <div className=" grow">
@@ -25,7 +38,6 @@ function EditCategories(Props) {
               className="border border-fuchsia-500 p-1 rounded"
               type="text"
               value={category.name}
-              placeholder={Props.category.name}
               onChange={(e) =>
                 setCategory({ ...category, name: e.target.value })
               }

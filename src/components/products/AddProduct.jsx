@@ -4,7 +4,7 @@ import { AdminData } from "../../context/Context";
 
 function AddProduct() {
   const fileInputRef = useRef(null);
-  const { categories } = useContext(AdminData);
+  const { categories, products, setProducts } = useContext(AdminData);
 
   const [product, setProduct] = useState({
     name: "",
@@ -14,11 +14,25 @@ function AddProduct() {
     salePrice: "",
     stock: "",
     image: "",
+    status: "active",
   });
 
-
   // sent data
-  const handelDataSent = () => {};
+  const handelDataSent = () => {
+    setProducts([...products, product]);
+    setProduct({
+      name: "",
+      desc: "",
+      category: "",
+      price: "",
+      salePrice: "",
+      stock: "",
+      image: "",
+      status: "active",
+
+    });
+    console.log(products);
+  };
 
   return (
     <>
