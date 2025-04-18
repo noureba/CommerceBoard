@@ -3,7 +3,7 @@ import "./styles/global.css";
 import AdminDataProvider from "./context/Provider";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import About from "./pages/about";
+import About from "./pages/About";
 
 const App = () => {
   return (
