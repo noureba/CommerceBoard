@@ -5,20 +5,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/about";
 
-
 const App = () => {
   return (
     <AdminDataProvider>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={<Dashboard/>}
-          />
-          <Route
-            path="/pages/about-us"
-            element={<About/>}
-          />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/pages/about-us" element={<About />} />
         </Routes>
       </BrowserRouter>
     </AdminDataProvider>

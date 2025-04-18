@@ -23,7 +23,7 @@ function AllPages() {
 
   return (
     <>
-      <div className=" overflow-x-scroll md:overflow-hidden">
+      <div className=" overflow-x-scroll">
         {modal ? <EditePageModal page={page} /> : null}
         <table className=" min-w-full text-left text-sm text-gray-700 border border-gray-200">
           <caption className="text-3xl font-bold my-10 text-start">
