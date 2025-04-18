@@ -2,16 +2,17 @@ import React, { useContext, useState } from "react";
 import { AdminData } from "../../context/Context";
 import { MdEdit } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
-import EditProductModal from "../products/EditProductModal";
 import { FaArrowAltCircleDown } from "react-icons/fa";
+import EditOrderModal from "./EditOrderModal";
+import jsPDF from "jspdf";
 
 function AllOrders() {
   const { orders, setOrders, modal, setModal } = useContext(AdminData);
-  const [product, setProduct] = useState("");
+  const [order, setOrder] = useState("");
 
   //handel edite
   const handelEdit = (item) => {
-    setProduct(item);
+    setOrder(item);
     setModal(true);
   };
 
@@ -21,10 +22,30 @@ function AllOrders() {
     setOrders(updateProducts);
   };
 
+  //handel download pdf
+  const handelDownload = (order) => {
+    const doc = new jsPDF();
+    doc.text(`Order ID: ${order.id}`, 10, 10);
+    doc.text(`Customer Name: ${order.customerName}`, 10, 20);
+    doc.text(`Email: ${order.email}`, 10, 30);
+    doc.text(`Phone: ${order.phone}`, 10, 40);
+    doc.text(`Address: ${order.address}`, 10, 50);
+    doc.text(`Total: ${order.total} $`, 10, 60);
+    doc.text(`Status: ${order.status}`, 10, 70);
+    doc.text(`Date: ${order.date}`, 10, 80);
+
+    const products = order.products
+      .map((item) => `${item.name} × ${item.quantity}`)
+      .join(", ");
+    doc.text(`Products: ${products}`, 10, 90);
+
+    doc.save(`${order.id}.pdf`);
+  };
+
   return (
     <>
       <div className=" overflow-x-scroll">
-        {modal ? <EditProductModal product={product} /> : null}
+        {modal ? <EditOrderModal order={order} /> : null}
         <table className=" min-w-full text-left text-sm text-gray-700 border border-gray-200">
           <caption className="text-3xl font-bold my-10 text-start">
             All Orders
@@ -91,11 +112,11 @@ function AllOrders() {
                         onClick={() => handelDelete(item.id)}
                       >
                         <MdDeleteForever />
-                        candel
+                        Cancel
                       </button>
                       <button
                         className="flex justify-between items-center gap-1 p-2 rounded bg-blue-500 text-white cursor-pointer"
-                        onClick={() => handelDelete(item.id)}
+                        onClick={() => handelDownload(item)}
                       >
                         <FaArrowAltCircleDown />
                         Download

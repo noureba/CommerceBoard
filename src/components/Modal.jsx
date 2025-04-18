@@ -3,7 +3,7 @@ import { AdminData } from "../context/Context";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
 function Modal({ children }) {
-  const { modal, setModal } = useContext(AdminData);
+  const { setModal } = useContext(AdminData);
 
   return (
     <div className=" fixed inset-0 justify-center items-center z-40">
@@ -18,7 +18,7 @@ function Modal({ children }) {
         >
           <IoIosCloseCircleOutline />
         </button>
-        <div className="">{children}</div>
+        <div className=" ">{children}</div>
       </div>
     </div>
   );

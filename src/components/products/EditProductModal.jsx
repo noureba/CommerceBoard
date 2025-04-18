@@ -31,7 +31,7 @@ function EditProductModal(Props) {
 
   return (
     <Modal>
-      <div className=" r">
+      <div className=" ">
         <h3 className="text-2xl font-bold my-10 text-start text-gray-700">
           Edit product
         </h3>

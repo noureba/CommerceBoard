@@ -3,6 +3,8 @@ import { AdminData } from "../../context/Context";
 
 function AddOrder() {
   const { orders, setOrders, products } = useContext(AdminData);
+  const date = new Date();
+  const todayDate = date.toISOString().split("T")[0]
 
   const [order, setOrder] = useState({
     id: Date.now(),
@@ -11,46 +13,46 @@ function AddOrder() {
     phone: "",
     address: "",
     total: 0,
-    status: "Processing", 
-    date: "",
-    products: [{ name: "", quantity: 1, price: 0 }],
+    status: "Processing",
+    date: todayDate,
+    products: [],
   });
 
-  const handleProductChange = (index, field, value) => {
-    const updatedProducts = [...order.products];
-    updatedProducts[index] = {
-      ...updatedProducts[index],
-      [field]: value,
-    };
-
-    setOrder({ ...order, products: updatedProducts });
-  };
+  const [orderProducts, setOrderProducts] = useState({
+    id: Date.now(),
+    name: "",
+    quantity: 1,
+    price: 0,
+  });
 
   const handleAddProduct = () => {
-    setOrder({
+    const updatedOrder = {
       ...order,
-      products: [...order.products, { name: "", quantity: 1, price: 0 }],
-    });
-  };
+      products: [...order.products, orderProducts],
+    };
+    setOrder(updatedOrder);
+    setOrderProducts({ id: Date.now(), name: "", quantity: 1, price: 0 });
 
-  const calculateTotal = () => {
-    const total = order.products.reduce(
-      (acc, product) => acc + product.price * product.quantity,
-      0
-    );
-    setOrder({ ...order, total });
+    //calculate Total
+    const updatedTotal = [...updatedOrder.products];
+    const total = updatedTotal.reduce((acc, cur) => {
+      return acc + cur.price * cur.quantity;
+    }, 0);
+    setOrder({ ...updatedOrder, total: total });
   };
 
   const handleDataSent = () => {
     setOrders([...orders, order]);
     setOrder({
+      id: Date.now(),
       customerName: "",
       email: "",
       phone: "",
       address: "",
       total: 0,
       status: "Processing",
-      products: [{ name: "", quantity: 1, price: 0 }],
+      date: "",
+      products: [],
     });
   };
 
@@ -135,47 +137,76 @@ function AddOrder() {
           </select>
         </div>
         <hr />
-        {order.products.map((product, index) => (
-          <div key={index} className="flex flex-col gap-2">
-            <label htmlFor="product">
-              Product {index + 1} <span className="text-red-500">*</span>
-            </label>
-            <select
-              name="product"
-              className="border border-fuchsia-500 p-1 rounded outline-fuchsia-500"
-              value={product.name}
-              onChange={(e) =>
-                handleProductChange(index, "name", e.target.value)
-              }
-            >
-              {products.map((item, index) => (
-                <option key={index} value={item.name}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
+        <table className=" min-w-full text-left text-sm text-gray-700 border border-gray-200">
+          <caption className="text-xl font-bold my-10 text-start">Cart</caption>
+          <thead>
+            <tr className="bg-gray-100 text-xs uppercase text-gray-500">
+              <th className="px-4 py-3">Product</th>
+              <th className="px-4 py-3">Quantity</th>
+              <th className="px-4 py-3">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {order.products.length > 0 ? (
+              order.products.map((item, index) => (
+                <tr key={index}>
+                  <td className="px-4 py-3">{item.name}</td>
+                  <td className="px-4 py-3">{item.quantity}</td>
+                  <td className="px-4 py-3">${item.price}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td className="text-xl text-center py-5" colSpan="3">
+                  No products available
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+        <hr />
+        <div className="flex flex-col gap-2">
+          <label htmlFor="product">
+            Product <span className="text-red-500">*</span>
+          </label>
+          <select
+            name="product"
+            className="border border-fuchsia-500 p-1 rounded outline-fuchsia-500"
+            value={orderProducts.name}
+            onChange={(e) =>
+              setOrderProducts({ ...orderProducts, name: e.target.value })
+            }
+          >
+            {products.map((item, index) => (
+              <option key={index} value={item.name}>
+                {item.name}
+              </option>
+            ))}
+          </select>
 
-            <label htmlFor="quantity">Quantity</label>
-            <input
-              className="border border-fuchsia-500 p-1 rounded"
-              type="number"
-              value={product.quantity}
-              onChange={(e) =>
-                handleProductChange(index, "quantity", e.target.value)
-              }
-            />
+          <label htmlFor="quantity">Quantity</label>
+          <input
+            className="border border-fuchsia-500 p-1 rounded"
+            type="number"
+            value={orderProducts.quantity}
+            onChange={(e) =>
+              setOrderProducts({ ...orderProducts, quantity: e.target.value })
+            }
+          />
 
-            <label htmlFor="price">Price</label>
-            <input
-              className="border border-fuchsia-500 p-1 rounded"
-              type="number"
-              value={product.price}
-              onChange={(e) =>
-                handleProductChange(index, "price", e.target.value)
-              }
-            />
-          </div>
-        ))}
+          <label htmlFor="price">Price</label>
+          <input
+            className="border border-fuchsia-500 p-1 rounded"
+            type="number"
+            value={orderProducts.price}
+            onChange={(e) =>
+              setOrderProducts({
+                ...orderProducts,
+                price: parseInt(e.target.value),
+              })
+            }
+          />
+        </div>
 
         <button
           type="button"
@@ -192,7 +223,6 @@ function AddOrder() {
         <button
           className="bg-fuchsia-500 text-white rounded px-3 py-2 font-medium cursor-pointer self-start hover:bg-fuchsia-400"
           onClick={() => {
-            calculateTotal();
             handleDataSent();
           }}
         >
