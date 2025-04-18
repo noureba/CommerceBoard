@@ -1,22 +1,26 @@
 import React from "react";
 import "./styles/global.css";
 import AdminDataProvider from "./context/Provider";
-import SideBare from "./components/SideBare";
-import View from "./components/View";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import About from "./pages/about";
+
 
 const App = () => {
   return (
     <AdminDataProvider>
-      <div className="max-w-[1700px] mx-auto bg-fuchsia-50">
-        <div className="flex justify-between">
-          <div>
-            <SideBare />
-          </div>
-          <div className="grow overflow-hidden md:p-10 p-3">
-            <View />
-          </div>
-        </div>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={<Dashboard/>}
+          />
+          <Route
+            path="/pages/about-us"
+            element={<About/>}
+          />
+        </Routes>
+      </BrowserRouter>
     </AdminDataProvider>
   );
 };

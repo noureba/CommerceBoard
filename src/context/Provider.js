@@ -3,16 +3,18 @@ import { AdminData } from "./Context";
 import { productsData } from "../data/products";
 import { categoriesData } from "../data/categories";
 import { ordersData } from "../data/orders";
+import { pagesData } from "../data/pages";
 
 function AdminDataProvider({ children }) {
   const [view, setView] = useState("home");
   const [sideBareOpen, setSideBareOpen] = useState(true);
   const [viewSubMenu, setViewSubMenu] = useState("");
   const [modal, setModal] = useState(false);
-  //const [load, setLoad] = useState(true)
+  const [load, setLoad] = useState(true);
   const [products, setProducts] = useState(productsData);
   const [categories, setCategories] = useState(categoriesData);
   const [orders, setOrders] = useState(ordersData);
+  const [pages, setPages] = useState(pagesData);
 
   const value = {
     view,
@@ -29,6 +31,10 @@ function AdminDataProvider({ children }) {
     setCategories,
     orders,
     setOrders,
+    pages,
+    setPages,
+    load,
+    setLoad,
   };
   return <AdminData.Provider value={value}>{children}</AdminData.Provider>;
 }
