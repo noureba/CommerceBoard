@@ -3,27 +3,32 @@ import { AdminData } from "../../context/Context";
 import Modal from "../Modal";
 import { Editor } from "@tinymce/tinymce-react";
 
-function EditePageModal(Props) {
+function EditePostsModal(Props) {
   const editorRef = useRef(null);
-  const { pages, setPages, setModal, load, setLoad } = useContext(AdminData);
-  const [page, setPage] = useState(Props.page);
+  const { posts, setPosts, setModal, load, setLoad } = useContext(AdminData);
+  const [post, setPost] = useState(Props.post);
 
   const handelSavePage = () => {
-    const updatedPage = pages.map((item) => {
-      if (item.id == page.id) {
-        return { ...item, ...page, content: editorRef.current.getContent(), updatedAt: new Date().toLocaleDateString() };
+    const updatedPage = posts.map((item) => {
+      if (item.id == post.id) {
+        return {
+          ...item,
+          ...post,
+          content: editorRef.current.getContent(),
+          updatedAt: new Date().toLocaleDateString(),
+        };
       }
       return item;
     });
 
-    setPages(updatedPage);
+    setPosts(updatedPage);
     setModal(false);
   };
 
   return (
     <Modal>
       <div style={{ maxWidth: 800, margin: "auto" }}>
-        <h2 className="text-3xl font-bold my-10 text-start">Edit Page</h2>
+        <h2 className="text-3xl font-bold my-10 text-start">Edit Post</h2>
         <div className="fex flex-col gap-10">
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
@@ -33,25 +38,13 @@ function EditePageModal(Props) {
               <input
                 className="border border-fuchsia-500 p-2 bg-white rounded"
                 type="text"
-                value={page.title}
+                value={post.title}
                 name="titile"
-                onChange={(e) => setPage({ ...page, title: e.target.value })}
+                onChange={(e) => setPost({ ...post, title: e.target.value })}
                 required
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="slug">
-                Slug <span className="text-red-500">*</span>
-              </label>
-              <input
-                className="border p-2 bg-white border-fuchsia-500 rounded"
-                type="text"
-                value={page.slug}
-                name="slug"
-                onChange={(e) => setPage({ ...page, slug: e.target.value })}
-                required
-              />
-            </div>
+           
           </div>
           <div>
             {load ? (
@@ -93,5 +86,5 @@ function EditePageModal(Props) {
   );
 }
 
-export default EditePageModal;
+export default EditePostsModal;
 2;
