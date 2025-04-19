@@ -5,6 +5,7 @@ import { categoriesData } from "../data/categories";
 import { ordersData } from "../data/orders";
 import { pagesData } from "../data/pages";
 import { postsData } from "../data/posts";
+import { usersData } from "../data/users";
 
 function AdminDataProvider({ children }) {
   const [view, setView] = useState("home");
@@ -17,7 +18,7 @@ function AdminDataProvider({ children }) {
   const [orders, setOrders] = useState(ordersData);
   const [pages, setPages] = useState(pagesData);
   const [posts, setPosts] = useState(postsData);
-
+  const [users, setUsers] = useState(usersData);
   const value = {
     view,
     setView,
@@ -39,6 +40,8 @@ function AdminDataProvider({ children }) {
     setLoad,
     posts,
     setPosts,
+    users,
+    setUsers,
   };
   return <AdminData.Provider value={value}>{children}</AdminData.Provider>;
 }
