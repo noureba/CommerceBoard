@@ -19,7 +19,7 @@ function SideBare() {
     useContext(AdminData);
   return (
     <>
-      <div className=" bg-gray-900  min-h-[100vh]">
+      <div className=" bg-gray-900  min-h-[100%]">
         <div
           className={`flex flex-col justify-between text-white bg-gray-900 gap-10 px-5 py-10 transition-all duration-300 relative ${
             sideBareOpen ? "md:min-w-[300px]" : null

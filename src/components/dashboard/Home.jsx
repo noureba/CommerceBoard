@@ -11,8 +11,8 @@ const salesData = {
   datasets: [
     {
       label: "Sales",
-      backgroundColor: "rgb(53, 162, 235)",
-      borderColor: "rgb(53, 162, 235)",
+      backgroundColor: "#5e17eb",
+      borderColor: "#5e17eb",
       data: [5, 10, 5, 2, 20, 30, 45],
     },
   ],
@@ -49,7 +49,7 @@ const revenueByDeviceData = {
     {
       label: "Category Distribution",
       data: [300, 150, 100, 50],
-      backgroundColor: ["#36A2EB", "#FF6384", "#FFCE56", "#4BC0C0"],
+      backgroundColor: ["#5e17eb", "#0077b6", "#2ec4b6", "#0d1b2a"],
       borderWidth: 0,
     },
   ],
@@ -70,8 +70,8 @@ const TrafficData = {
     {
       label: "Sales",
       data: [100, 200, 150, 300, 250, 400],
-      borderColor: "rgba(75, 192, 192, 1)",
-      backgroundColor: "rgba(75, 192, 192, 0.2)",
+      borderColor: "#3a86ff",
+      backgroundColor: "#3a86ff",
       fill: false,
       tension: 0.4,
     },

@@ -1,0 +1,25 @@
+🛒 CommerceBoard Frontend
+CommerceBoard is a modern, responsive frontend dashboard built for eCommerce platforms. It provides powerful UI components, charts, and analytics to monitor sales, customers, orders, and more — designed for seamless integration with your backend.
+
+🚀 Features
+📊 Interactive analytics dashboard
+
+🛍️ Product and order management interfaces
+
+👥 Customer insights and activity tracking
+
+⚡ Built with performance and responsiveness in mind
+
+🛠️ Tech Stack
+Framework: React
+
+UI Library: Tailwind CSS
+
+State Management: Context API
+
+Routing: React Router
+
+Charts: Chart.js 
+
+API Communication: Fetch
+
