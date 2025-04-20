@@ -12,9 +12,8 @@ import AllPosts from "./posts/AllPosts";
 import AddPosts from "./posts/AddPosts";
 import AllUsers from "./users/AllUsers";
 import AddUser from "./users/AddUser";
-import Profile from "./Profile";
-import PaymentMethods from "./PaymentMethods";
-import ShippingMethids from "./ShippingMethids";
+import Profile from "./settings/Profile";
+import Others from "./settings/Others";
 
 function View() {
   const { view } = useContext(AdminData);
@@ -46,10 +45,8 @@ function View() {
         return <AddUser />;
       case "Profile":
         return <Profile />;
-      case "Payment methods":
-        return <PaymentMethods />;
-      case "Shipping methods":
-        return <ShippingMethids />;
+      case "Others":
+        return <Others />;
       default:
         return <Home />;
     }

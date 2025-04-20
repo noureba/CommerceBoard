@@ -76,7 +76,7 @@ function SideBare() {
             />
             <SideBareItem
               name="Settings"
-              subMenu={["Profile", "Payment methods", "Shipping methods"]}
+              subMenu={["Profile", "Others"]}
               icon={<IoSettingsOutline />}
             />
           </div>

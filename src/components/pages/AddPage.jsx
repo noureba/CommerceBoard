@@ -60,7 +60,7 @@ const AddPage = () => {
             </div>
           ) : null}
           <Editor
-            apiKey="bnz2bjbj4mhxa5j6ooua61x1nwrofcuungyrovdib0v24194"
+            apiKey={process.env.EDITOR_APIKEY}
             onInit={(evt, editor) => {
               editorRef.current = editor;
               setLoad(false);

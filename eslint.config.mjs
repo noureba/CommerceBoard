@@ -10,6 +10,7 @@ export default defineConfig([
     extends: ["js/recommended"],
     rules: {
       quotes: ["error", "double"],
+      "no-undef": "off",
     },
   },
   {

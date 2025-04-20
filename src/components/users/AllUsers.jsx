@@ -13,6 +13,11 @@ function AllUsers() {
     id: "",
     status: false,
   });
+  //filter users by role
+  const filterUsers = () => {
+    const filter = users.filter((item) => item.role !== "admin");
+    return filter;
+  };
 
   //handel edite
   const handelEdit = (item) => {
@@ -70,8 +75,8 @@ function AllUsers() {
             </tr>
           </thead>
           <tbody className=" divide-y divide-gray-200 bg-white">
-            {users.length > 0 ? (
-              users.map((item) => (
+            {filterUsers().length > 0 ? (
+              filterUsers().map((item) => (
                 <tr key={item.id}>
                   <td className="px-4 py-3">{item.id}</td>
                   <td className="px-4 py-3">{item.fullName}</td>
