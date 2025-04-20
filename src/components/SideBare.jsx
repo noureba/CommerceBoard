@@ -48,7 +48,7 @@ function SideBare() {
             )}
           </div>
           <div className="flex flex-col gap-5">
-            <SideBareItem name="Dashboard" icon={<MdDashboard />} />
+            <SideBareItem name="Dashboard" icon={<MdDashboard />} element="home"/>
             <SideBareItem
               name="Products"
               subMenu={["All products", "Add new product", "Categories"]}

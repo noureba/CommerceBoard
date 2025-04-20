@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AdminData } from "../context/Context";
-import Home from "./Home";
+import Home from "./dashboard/Home";
 import AllProducts from "./products/AllProducts";
 import AddProduct from "./products/AddProduct";
 import Categories from "./products/Categories";

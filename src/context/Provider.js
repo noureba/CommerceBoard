@@ -15,7 +15,7 @@ function AdminDataProvider({ children }) {
   const [viewSubMenu, setViewSubMenu] = useState("");
   const [modal, setModal] = useState(false);
   const [modals, setModals] = useState({
-    itemId:"",
+    itemId: "",
     payment: false,
     shipping: false,
   });
@@ -28,6 +28,7 @@ function AdminDataProvider({ children }) {
   const [users, setUsers] = useState(usersData);
   const [paymentMethods, setPaymentMethods] = useState(paymentMethodsData);
   const [shippingMthods, setShippingMethods] = useState(shippingMethods);
+  const [filterByDate, setFilterByDate] = useState();
 
   const value = {
     view,
@@ -58,6 +59,8 @@ function AdminDataProvider({ children }) {
     setPaymentMethods,
     shippingMthods,
     setShippingMethods,
+    filterByDate,
+    setFilterByDate,
   };
   return <AdminData.Provider value={value}>{children}</AdminData.Provider>;
 }

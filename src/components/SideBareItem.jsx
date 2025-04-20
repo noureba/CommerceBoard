@@ -11,6 +11,13 @@ function SideBareItem(Props) {
     setView,
   } = useContext(AdminData);
 
+  const handelMenu = () => {
+    Props.subMenu && viewSubMenu !== Props.name
+      ? setViewSubMenu(Props.name)
+      : setViewSubMenu("");
+    Props.element ? setView(Props.element) : null;
+  };
+
   return (
     <>
       <div>
@@ -18,11 +25,7 @@ function SideBareItem(Props) {
           className={`flex justify-between items-center p-2 hover:bg-gray-800 cursor-pointer transition-all duration-300 ${
             !sideBareOpen ? "rounded-2xl" : null
           }`}
-          onClick={() =>
-            Props.subMenu && viewSubMenu !== Props.name
-              ? setViewSubMenu(Props.name)
-              : setViewSubMenu("")
-          }
+          onClick={handelMenu}
         >
           <div
             className="text-3xl"
